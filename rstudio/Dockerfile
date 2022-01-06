@@ -83,6 +83,8 @@ RUN apt-get update \
   && mkdir -p /home/rstudio/.rstudio/monitored/user-settings \
   && echo 'alwaysSaveHistory="0" \
           \nloadRData="0" \
+          \font_size_points="11" \
+          \browser_fixed_width_fonts="JetBrains Mono" \
           \nsaveAction="0"' \
           > /home/rstudio/.rstudio/monitored/user-settings/user-settings \
   && chown -R rstudio:rstudio /home/rstudio/.rstudio
@@ -94,6 +96,14 @@ COPY add_shiny.sh /etc/cont-init.d/add
 COPY disable_auth_rserver.conf /etc/rstudio/disable_auth_rserver.conf
 
 RUN Rscript -e "install.packages(c('data.table', 'arrow', 'fs', 'ggplot2', 'mlr3verse', 'MASS'), repos='http://cran.rstudio.com/')"
+RUN Rscript -e "install.packages(c('rstudioapi', 'usethis'), repos='http://cran.rstudio.com/')"
+#RUN Rscript -e "rstudioapi::addTheme(file.path('rstudio', 'material_dark.rstheme'), apply = TRUE, force = TRUE, globally = FALSE)"
+
+COPY .Rprofile /home/mbs/.Rprofile
+
+COPY material_dark.rstheme /home/rstudio/material_dark.rstheme
+COPY material_light.rstheme /home/rstudio/material_light.rstheme
+
 
 EXPOSE 8787
 

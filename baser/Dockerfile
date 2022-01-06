@@ -5,10 +5,10 @@ LABEL maintainer="Rami Krispin <rami.krispin@gmail.com>"
 # Setting the R version
 
 ENV R_VERSION_MAJOR=4
-ENV R_VERSION_MINOR=0
-ENV R_VERSION_PATCH=0
+ENV R_VERSION_MINOR=1
+ENV R_VERSION_PATCH=2
 ENV CONFIGURE_OPTIONS="--with-cairo --with-jpeglib --enable-R-shlib --with-blas --with-lapack"
-ENV RENV_VERSION 0.9.3
+
 
 # Installing tzdata
 ARG DEBIAN_FRONTEND=noninteractive
